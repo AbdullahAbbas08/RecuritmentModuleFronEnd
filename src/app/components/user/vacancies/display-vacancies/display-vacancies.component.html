@@ -1,0 +1,134 @@
+<div class="container">
+  <h1 class="py-4">Job Vacancies</h1>
+
+  <div class="" *ngIf="Vacancies.length;else NoVacancies">
+    <div
+      class="card mb-3"
+      *ngFor="
+        let item of Vacancies
+          | paginate : { itemsPerPage: 3, currentPage: p, totalItems: total }
+      "
+    >
+      <div class="card-header">
+        <div class="row d-flex justify-content-start py-3">
+          <div class="col-12 col-md-9">
+            <div class="row">
+              <div class="col-12 col-md-2 d-flex justify-content-start  align-items-center">
+                <h5>Position</h5>
+              </div>
+              <div class="col-12 col-md-10 d-flex justify-content-start">
+                <h4>
+                  {{ item.name }}
+                </h4>
+              </div>
+            </div>
+          </div>
+          <div class="col-12 col-md-3 d-flex justify-content-end">
+            <div *ngIf="item.isClosed == true; else OpenBlock">
+              <div class="Closed"><span> Closed </span></div>
+            </div>
+            <ng-template #OpenBlock>
+              <div class="Open">
+                <span>Open</span>
+              </div>
+            </ng-template>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">
+            <div class="row">
+              <div class="col-12 col-md-2 d-flex justify-content-start">
+                <h5>Description</h5>
+              </div>
+              <div class="col-12 col-md-10 d-flex justify-content-start">
+                {{ item.description }}
+              </div>
+            </div>
+          </li>
+          <li class="list-group-item">
+            <div class="row">
+              <div class="col-12 col-md-2 d-flex justify-content-start">
+                <h5>Category</h5>
+              </div>
+              <div class="col-12 col-md-10 d-flex justify-content-start">
+                {{ item.jobCategory.title }}
+              </div>
+            </div>
+          </li>
+          <li class="list-group-item">
+            <div class="row">
+              <div class="col-12 col-md-2 d-flex justify-content-start">
+                <h5>Responsibilities</h5>
+              </div>
+              <div class="col-12 col-md-10 d-flex justify-content-start">
+                <ul class="py-4">
+                  <li *ngFor="let responsibility of item.responsibilities">
+                    <span>{{ responsibility.responsibilityItem }}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li class="list-group-item">
+            <div class="row">
+              <div class="col-12 col-md-2 d-flex justify-content-start">
+                <h5>Skills</h5>
+              </div>
+              <div class="col-12 col-md-10 d-flex justify-content-start">
+                <ul class="py-4">
+                  <li *ngFor="let responsibility of item.skills">
+                    <span>{{ responsibility.skillItem }}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </li>
+          <li class="list-group-item">
+            <div class="row">
+              <div class="col-12 col-md-2 d-flex justify-content-start">
+                <h5>Published</h5>
+              </div>
+              <div class="col-12 col-md-10 d-flex justify-content-start">
+                {{ item.validateFrom | date }}
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="card-footer" *ngIf="!item.isClosed">
+        <div class="row">
+          <div class="col-12 col-md-2 d-flex justify-content-start  align-items-center">
+            <h5>are you interested ? </h5>
+          </div>
+          <div class="col-12 col-md-10 d-flex justify-content-between">
+            <button class="btn btn-primary my-3" (click)="ApplyApplicant(item.id)">
+              Apply Now
+            </button>
+            <div class="d-flex align-items-center" *ngIf="IsAdmin == true">
+              <!-- <span class="px-1" style="color: #30666e;cursor: pointer;font-weight: bold;"
+              routerLink="/vacancy/update/{{item.id}}"
+              >Edit</span> -->
+              <span class="px-1" style="color: red;cursor: pointer;font-weight: bold;" (click)="Delete(item.id)">Delete</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <pagination-controls
+    (pageChange)="pageChangeEvent($event)"
+  ></pagination-controls>
+  </div>
+<ng-template #NoVacancies>
+  <div class="alert alert-danger text-center">
+    <h5 style="color: red;">
+      No Job Vacanies Now
+    </h5>
+  </div>
+</ng-template>
+
+
+</div>

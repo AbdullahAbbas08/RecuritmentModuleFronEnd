@@ -1,0 +1,13 @@
+.Closed{
+  color: red;
+  padding: 10px;
+  font-weight: bolder;
+  border-radius: 20px;
+}
+
+.Open{
+  color: green;
+  padding: 10px;
+  font-weight: bolder;
+  border-radius: 20px;
+}

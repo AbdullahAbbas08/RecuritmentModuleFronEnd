@@ -1,0 +1,63 @@
+<div class="login d-flex align-items-center justify-content-center">
+  <form [formGroup]="LoginForm" (ngSubmit)="Register()">
+    <h1 class="h3 mb-3 fw-normal text-center">Register </h1>
+
+    <div class="form-floating my-1">
+      <input
+        type="email"
+        class="form-control"
+        id="floatingInput"
+        placeholder="Abdullah"
+        formControlName="firstName"
+        minlength="3"
+      />
+      <label for="floatingInput">firstName</label>
+    </div>
+    <div class="form-floating my-1">
+      <input
+        type="text"
+        class="form-control"
+        id="floatingPassword1"
+        placeholder="Password"
+        formControlName="lastName"
+      />
+      <label for="floatingPassword1">lastName</label>
+    </div>
+    <div class="form-floating my-1">
+      <input
+        type="text"
+        class="form-control"
+        id="mobileNumber"
+        placeholder="mobileNumber"
+        formControlName="mobileNumber"
+      />
+      <label for="mobileNumber">mobileNumber</label>
+    </div>
+    <div class="form-floating my-1">
+      <input
+        type="text"
+        class="form-control"
+        id="username"
+        placeholder="username"
+        formControlName="username"
+      />
+      <label for="username">username</label>
+    </div>
+    <div class="form-floating my-1">
+      <input
+        type="password"
+        class="form-control"
+        id="floatingPassword"
+        placeholder="Password"
+        formControlName="password"
+      />
+      <label for="floatingPassword">password</label>
+    </div>
+
+
+    <button class="w-100 my-1 btn btn-lg btn-primary" type="submit" [disabled]="LoginForm.invalid">
+      Register
+    </button>
+  </form>
+  <!-- {{LoginForm.value | json}} -->
+</div>

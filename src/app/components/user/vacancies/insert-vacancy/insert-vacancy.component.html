@@ -1,0 +1,252 @@
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <h3>Create Vacancy</h3>
+    </div>
+  </div>
+  <form [formGroup]="VacancyForm" (ngSubmit)="CreateVacancy()">
+    <div class="row">
+      <div class="col-12">
+        <div class="form-group">
+          <label for="name"> Title</label>
+          <input
+            class="form-control"
+            id="name"
+            type="text"
+            placeholder="name here"
+            required="required"
+            formControlName="name"
+          />
+          <ng-container
+            class=""
+
+            *ngIf="
+              VacancyForm.get('name')?.hasError('required') &&
+              VacancyForm.get('name')?.touched
+            "
+          >
+            name Required</ng-container
+          >
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label> Job Category </label>
+          <select
+            class="form-control"
+            (change)="changejobCategory($event)"
+            formControlName="jobCategoryId"
+          >
+            <option disabled value="">Choose Category</option>
+            <option *ngFor="let item of Categories" [ngValue]="item.id">
+              {{ item.title }}
+            </option>
+          </select>
+          <ng-container
+            class=""
+
+            *ngIf="
+              VacancyForm.get('jobCategoryId')?.hasError('required') &&
+              VacancyForm.get('jobCategoryId')?.touched
+            "
+          >
+            job Category Required</ng-container
+          >
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label for="name"> Maximum Application</label>
+          <input
+            class="form-control"
+            id="MaxApp"
+            type="number"
+            placeholder=" Enter Max App"
+            required="required"
+            formControlName="maximumApplications"
+          />
+          <ng-container
+            class=""
+
+            *ngIf="
+              VacancyForm.get('maximumApplications')?.hasError('required') &&
+              VacancyForm.get('maximumApplications')?.touched
+            "
+          >
+            maximum Applications Required</ng-container
+          >
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label for="name"> Date From</label>
+          <input
+            type="date"
+            class="form-control"
+            formControlName="validateFrom"
+          />
+          <ng-container
+            class=""
+
+            *ngIf="
+              VacancyForm.get('validateFrom')?.hasError('required') &&
+              VacancyForm.get('validateFrom')?.touched
+            "
+          >
+            validate From Required</ng-container
+          >
+        </div>
+      </div>
+      <div class="col-12 col-md-6">
+        <div class="form-group">
+          <label for="name"> Date To</label>
+          <input
+            type="date"
+            class="form-control"
+            formControlName="validateTo"
+          />
+          <ng-container
+          class=""
+
+          *ngIf="
+            VacancyForm.get('validateTo')?.hasError('required') &&
+            VacancyForm.get('validateTo')?.touched
+          "
+        >
+        validate To Required</ng-container
+        >
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="form-group">
+          <label for="name"> Description </label>
+          <textarea minlength="20"
+            id="packageDescriptionAR"
+            class="form-control p-3"
+            placeholder="Description"
+            name="w3review"
+            rows="3"
+            cols="50"
+            formControlName="description"
+          >
+          </textarea>
+          <ng-container
+          *ngIf="
+            VacancyForm.get('description')?.hasError('required') &&
+            VacancyForm.get('description')?.touched">
+        description Required
+        </ng-container>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="row">
+          <div
+            class="p-2"
+            formArrayName="responsibilities"
+            style="background-color: #e4e9e6"
+            *ngIf="getResponsibilities().controls.length"
+          >
+            <div
+              class="col-12 child"
+              *ngFor="let item of getResponsibilities().controls; let i = index"
+              [formGroupName]="i"
+              style="background-color: #ccc; margin: 5px"
+            >
+              <div class="form-group mx-20">
+                <label for="name"> Item</label>
+                <input
+                  class="form-control"
+                  id="name"
+                  type="text"
+                  placeholder="Enter Resposibility Item here"
+                  required="required"
+                  formControlName="ResponsibilityItem"
+                />
+                <!-- <ng-container class="" style="color: red;"
+                    *ngIf="InsertForm.get('name').hasError('required') && InsertForm.get('name').touched">
+                    name Required</ng-container> -->
+              </div>
+              <div class="col-12">
+                <button
+                  (click)="deleteResponsibility(i)"
+                  class="btn btn-danger my-2"
+                  style="margin-left: 40px"
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <a class="btn btn-primary my-2" (click)="addResponsibility()">
+              Add Resposibility Item
+            </a>
+          </div>
+        </div>
+
+        <div class="row">
+          <div
+            class="p-2"
+            formArrayName="skills"
+            style="background-color: #e4e9e6"
+            *ngIf="getSkills().controls.length"
+          >
+            <div
+              class="col-12 child"
+              *ngFor="let item of getSkills().controls; let i = index"
+              [formGroupName]="i"
+              style="background-color: #ccc; margin: 5px"
+            >
+              <div class="form-group mx-20">
+                <label for="name"> Item</label>
+                <input
+                  class="form-control"
+                  id="name"
+                  type="text"
+                  placeholder="Enter Skill Item here"
+                  required="required"
+                  formControlName="SkillItem"
+                />
+                <!-- <ng-container class="" style="color: red;"
+                    *ngIf="InsertForm.get('name').hasError('required') && InsertForm.get('name').touched">
+                    name Required</ng-container> -->
+              </div>
+              <div class="col-12">
+                <button
+                  (click)="deleteSkill(i)"
+                  class="btn btn-danger my-2"
+                  style="margin-left: 40px"
+                >
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <a class="btn btn-secondary my-2" (click)="addSkill()">
+              Add Skill Item
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <button
+          class="btn btn-primary pull-right"
+          type="submit"
+          [disabled]="VacancyForm.invalid"
+        >
+          Add
+        </button>
+
+        <!-- <div class="form-group">
+          {{ VacancyForm.value | json }}
+        </div> -->
+      </div>
+    </div>
+  </form>
+</div>
